@@ -32,8 +32,16 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URL || '',
     },
   }),
-  cors: ['http://localhost:8000', 'http://localhost:3000'],
-  csrf: ['http://localhost:8000', 'http://localhost:3000'],
+  cors: [
+    'http://localhost:8000',
+    'http://localhost:3000',
+    ...(process.env.NEXT_PUBLIC_SERVER_URL ? [process.env.NEXT_PUBLIC_SERVER_URL] : []),
+  ],
+  csrf: [
+    'http://localhost:8000',
+    'http://localhost:3000',
+    ...(process.env.NEXT_PUBLIC_SERVER_URL ? [process.env.NEXT_PUBLIC_SERVER_URL] : []),
+  ],
   sharp,
   plugins: [],
 })
