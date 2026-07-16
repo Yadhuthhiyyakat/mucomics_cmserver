@@ -7,6 +7,9 @@ import sharp from 'sharp'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
+import { Covers } from './collections/Covers'
+import { Pdfs } from './collections/Pdfs'
+import { Comics } from './collections/Comics'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -18,7 +21,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media],
+  collections: [Users, Media, Covers, Pdfs, Comics],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
@@ -29,6 +32,8 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URL || '',
     },
   }),
+  cors: ['http://localhost:8000', 'http://localhost:3000'],
+  csrf: ['http://localhost:8000', 'http://localhost:3000'],
   sharp,
   plugins: [],
 })

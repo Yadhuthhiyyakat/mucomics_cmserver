@@ -69,6 +69,9 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    covers: Cover;
+    pdfs: Pdf;
+    comics: Comic;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -78,6 +81,9 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    covers: CoversSelect<false> | CoversSelect<true>;
+    pdfs: PdfsSelect<false> | PdfsSelect<true>;
+    comics: ComicsSelect<false> | ComicsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -331,6 +337,116 @@ export interface CollectionsWidget {
  */
 export interface Auth {
   [k: string]: unknown;
+}
+
+/**
+ * Manually maintained until `payload generate:types` can be run with Postgres.
+ * Represents the 'covers' upload collection.
+ */
+export interface Cover {
+  id: string;
+  alt: string;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+
+/**
+ * Manually maintained until `payload generate:types` can be run with Postgres.
+ * Represents the 'pdfs' upload collection.
+ */
+export interface Pdf {
+  id: string;
+  title: string;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+}
+
+/**
+ * Manually maintained until `payload generate:types` can be run with Postgres.
+ * Represents the 'comics' collection with all metadata fields.
+ */
+export interface Comic {
+  id: string;
+  title: string;
+  author: string;
+  issue?: string | null;
+  genre: 'SCI-FI' | 'CYBERPUNK' | 'ACTION' | 'FANTASY' | 'COMEDY';
+  description?: string | null;
+  coverImage: string | Cover;
+  writer?: string | null;
+  artist?: string | null;
+  colorist?: string | null;
+  pagesCount?: number | null;
+  rank?: number | null;
+  stars?: string | null;
+  isNew?: boolean | null;
+  publisherDate?: string | null;
+  chapters?:
+    | {
+        chapterNumber: number;
+        chapterTitle: string;
+        pdfFile: string | Pdf;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+
+export interface CoversSelect<T extends boolean = true> {
+  alt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+
+export interface PdfsSelect<T extends boolean = true> {
+  title?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+}
+
+export interface ComicsSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  coverImage?: T;
+  chapters?:
+    | T
+    | {
+        chapterNumber?: T;
+        chapterTitle?: T;
+        pdfFile?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
 }
 
 
