@@ -9,8 +9,6 @@ const dirname = path.dirname(filename);
 export const Covers: CollectionConfig = {
   slug: 'covers',
   upload: {
-    // Routes the physical image files to your local hard drive folder
-    staticDir: path.resolve(dirname, '../../storage-covers'),
     mimeTypes: ['image/*'],
   },
   access: {
@@ -20,6 +18,6 @@ export const Covers: CollectionConfig = {
     delete: ({ req: { user } }) => Boolean(user),
   },
   fields: [
-    { name: 'alt', type: 'text', required: true }
+    { name: 'alt', type: 'text' }
   ],
 };

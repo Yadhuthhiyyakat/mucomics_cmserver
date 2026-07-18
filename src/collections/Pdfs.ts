@@ -9,8 +9,6 @@ const dirname = path.dirname(filename);
 export const Pdfs: CollectionConfig = {
   slug: 'pdfs',
   upload: {
-    // Routes the physical binary PDF books to your local hard drive folder
-    staticDir: path.resolve(dirname, '../../storage-pdfs'),
     mimeTypes: ['application/pdf'],
   },
   access: {
@@ -20,6 +18,6 @@ export const Pdfs: CollectionConfig = {
     delete: ({ req: { user } }) => Boolean(user),
   },
   fields: [
-    { name: 'title', type: 'text', required: true }
+    { name: 'title', type: 'text' }
   ],
 };
